@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="../../static/css/style.css">
+        <script src="../static/js/jquery-3.4.1.min.js" charset="utf-8"></script>
+    </head>
+    <body>
+
+        <form action="{{ url_for('User.login') }}" method="post" class="login-form">
+            <h1>登 录</h1>
+            <p style="color: red;text-align: center">{{ msg }}</p>
+            
+            <div class="txtb">
+                <input type="text" name="username">
+                <span data-placeholder="账号"></span>
+            </div>
+
+            <div class="txtb">
+                <input type="password" name="password">
+                <span data-placeholder="密码"></span>
+            </div>
+
+            <div style="text-align: right">
+                <label for="identity" style="float:left;font-size: 16px;color: grey">身份</label>
+                <input type="radio" id="developer" name="identity" checked="checked" value="1"> <label for="developer">开发者</label>
+                <input type="radio" id="admin" name="identity" style="margin: 0px 0px 40px 20px" value="0"> <label for="admin">管理员</label>
+            </div>
+
+            <input type="submit" class="logbtn" value="登 录">
+
+            <div class="bottom-text">
+                您还没有账号？ <a href="{{ url_for('User.makeregister') }}">注 册</a>
+            </div>
+
+        </form>
+
+        <script type="text/javascript">
+            $(".txtb input").on("focus", function(){
+                $(this).addClass("focus");
+            });
+
+            $(".txtb input").on("blur", function(){
+                if($(this).val() == "")
+                $(this).removeClass("focus");
+            });
+
+        </script>
+
+    </body>
+</html>

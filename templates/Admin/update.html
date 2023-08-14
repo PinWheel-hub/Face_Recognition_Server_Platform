@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../static/css/form.css">
+    <script src="../../static/js/jquery-3.4.1.min.js" charset="utf-8"></script>
+</head>
+<body>
+<h3 style="text-align: center">修改用户信息</h3>
+<p style="height:14px;text-align: center;color:red;margin:5px;{{ "display:none;" if msg=='' else "" }}">{{ msg }}</p>
+<div id="alter">
+    <form action="{{ url_for('Admin.update') }}" method="post" enctype="multipart/form-data"
+          accept="image/jpg,image/bmp,image/png">
+
+        <p><label for="Did">开发者编号</label>
+            <input type="number" name="Did" value="{{ developer.Did }}" readonly="readonly" disabled
+                   id="Did">
+        </p>
+        <p><label for="Dname">开发者名称</label>
+            <input name="Dname" type="text" value="{{ developer.Dname }}" readonly="readonly" id="Dname"
+                   required="required">
+        </p>
+
+        <p><label for="Dtel">开发者电话号码</label>
+            <input name="Dtel" type="number" value="{{ developer.Dtel }}" readonly="readonly" id="Dtel"
+                   required="required">
+        </p>
+        <p>
+            <input type="reset" value="编辑">
+            <input type="submit" id="submit" value="修改">
+        </p>
+        <p><input type="hidden" name="id" value="{{ developer.Did }}" ></p>
+    </form>
+</div>
+<script>
+    change = $("input[type='reset']");
+    change.click(function (e) {
+        e.preventDefault();
+        readonly = $("input[readonly]").removeAttr('readonly');
+        console.log(readonly);
+        $("#face,label[for='face']").css("display", "inline-block");
+    });
+
+</script>
+</body>
+</html>

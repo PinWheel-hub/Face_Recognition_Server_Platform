@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../static/css/form.css">
+    <script src="../../static/js/jquery-3.4.1.min.js" charset="utf-8"></script>
+</head>
+<body>
+    <h3 style="text-align: center">修改人脸</h3>
+    <p style="height:14px;text-align: center;color:red;margin:5px;{{"display:none;" if msg=='' else ""}}">{{ msg }}</p>
+    <div id="alter">
+        <form action="/developer/updaterecord" method="post" enctype="multipart/form-data"
+              accept="image/jpg,image/bmp,image/png">
+            <p><label for="Rtime">操作时间</label>
+                <input  type="text" name="rtime" value="{{ record.Rtime }}" readonly="readonly" id="fname">
+            </p>
+            <p><label for="apid">应用编号</label>
+                <input type="number" name="apid" value="{{ record.Apid }}"
+                       readonly="readonly" required="required" id="apid">
+            </p>
+            <p><label for="isSuccess">成功</label>
+                <input type="text" name="isSuccess" value="{{  '是' if record.isSuccess==True else '否'  }}"
+                       readonly="readonly" required id="isSuccess">
+            </p>
+            <p>
+                <input type="reset" value="编辑">
+                <input type="submit" id="submit" value="修改">
+            </p>
+            <input type="text" value="{{ record.Rid }}" style="display: none;" name="rid">
+        </form>
+    </div>
+    <script>
+        change = $("input[type='reset']");
+        change.click(function(e){
+            e.preventDefault();
+            readonly = $("input[readonly]").removeAttr('readonly');
+            console.log(readonly);
+            $("#face,label[for='face']").css("display","inline-block");
+        });
+
+    </script>
+</body>
+</html>

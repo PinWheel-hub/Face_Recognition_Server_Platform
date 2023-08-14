@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息</title>
+    <style>
+        form{
+            width: 500px;
+            margin:0 auto;
+        }
+
+        input{
+            margin:30px 10px;
+            text-indent: 0.2em;
+        }
+
+        h2{
+            text-align: center;
+        }
+
+        label{
+            margin-left:10px;
+        }
+
+        #submit{
+            background-color: rgb(63, 137, 236);
+            color:white;
+            margin:0 auto 20px;
+            width: 300px;
+            height: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <form action="" style="border:1px solid black">
+        <h2>个人信息</h2>
+        <div style="text-align: center;">
+        <img src="../static/img/default_icon.jpg" alt="" height="150px" >
+        </div>
+        <div>
+            <label for="dname">姓名</label><input type="text" name="dname" id="dname" value="{{ developer.Dname }}">
+            <label for="dtel">手机号</label><input type="text" name="dtel" id="dtel"value="{{ developer.Dtel }}">
+        </div>
+        <div>
+            <label for="dname">性别</label><input type="text" name="dname" value="{{ "男" if developer.Dmale else"女"}}">
+            <label for="dtel">生日</label><input type="text" name="dtel" value="{{ developer.Dbirth }}">
+        </div>
+        <div>
+            <label for="dname">邮箱</label><input type="text" name="dname" value="{{ developer.Demail }}">
+            <label for="dtel">地址</label><input type="text" name="dtel" value="{{ developer.Daddress }}">
+        </div>
+        <input id='submit' type="submit" value="确认修改" style="display: block">
+    </form>
+</body>
+</html>

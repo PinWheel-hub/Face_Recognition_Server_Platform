@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>myface</title>
+    <link rel="stylesheet" href="../../static/css/table.css">
+    <link rel="stylesheet" href="../../static/font/iconfont.css">
+    <script src="../../static/js/jquery-3.4.1.min.js" charset="utf-8"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="../../static/js/drag.js"></script>
+
+
+</head>
+<body>
+<div class="drag">
+    <div class="dragtop">
+            <span class="dragclose">
+                <span class="icon iconfont icon-guanbi" style="color: lightgrey"/>
+            </span>
+    </div>
+    <iframe class='dragframe' name="drag" src="/" frameborder="0" scrolling="no"></iframe>
+</div>
+<fieldset>
+    <legend><h2>开发者管理</h2></legend>
+    <div style="height: 550px">
+        <form action="{{ url_for('Admin.search_developers') }}" method="post">
+            <input type="search" name="content" placeholder="输入查询内容">
+            <label style="font-size: 14px">关键字：</label>
+            <select name="keyword">
+                <option value="Did">编号</option>
+                <option value="Dname">开发者名称</option>
+                <option value="Dtel">开发者手机号码</option>
+            </select>
+            <input type="submit" value="查询" style="height: 30px;background-color:#ff9b3b;">
+{#            <button class="add blue">#}
+{#                <span class="icon iconfont icon-1_add"></span>&nbsp新增#}
+{#            </button>#}
+        </form>
+        <table class="pure-table">
+            <thead>
+            <tr>
+                <th width="10%">编号</th>
+                <th width="25%">开发者名称</th>
+                <th width="25%">开发者手机号码</th>
+                <th width="40%">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for developer in developers.items %}
+                <tr {% if loop.index % 2 == 0 %}class="pure-table-odd"{% endif %}>
+                    <td>{{ developer.Did }}</td>
+                    <td>{{ developer.Dname }}</td>
+                    <td>{{ developer.Dtel }}</td>
+                    {#                    <td>#}
+                    {#                        <button class="blue">查看</button>#}
+                    {#                        <button class="green"#}
+                    {#                                onclick="window.location.href ='{{ url_for('Admin.update') }}?Did={{ developer.Did }}'">#}
+                    {#                            修改#}
+                    {#                        </button>#}
+                    {#                        <button class="red"#}
+                    {#                                onclick="window.location.href ='{{ url_for('Admin.delete') }}?Did={{ developer.Did }}'">#}
+                    {#                            删除#}
+                    {#                        </button>#}
+                    {#                    </td>#}
+                    <td>
+                        <a class="blue dragshow check" target="drag"
+                           href="{{ url_for('Admin.update') }}?Did={{ developer.Did }}">查看</a>
+                        <a class="green dragshow update" target="drag"
+                           href="{{ url_for('Admin.update') }}?Did={{ developer.Did }}">修改</a>
+                        <a class="red delete" href="{{ url_for('Admin.delete') }}?Did={{ developer.Did }}">删除</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div style="text-align: center">
+        <ul class="pagination">
+            <li>
+                <a {% if not developers.has_prev %}class="disabled"{% endif %}
+                   href="{{ url_for('Admin.manage') }}?page={{ developers.prev_num }} ">«</a>
+            </li>
+            {% for page_num in range(1,developers.pages + 1) %}
+                <li>
+                    <a href="{{ url_for('Admin.manage') }}?page={{ page_num }}"
+                            {% if developers. page==page_num %} class="active"{% endif %}>{{ page_num }}</a>
+                </li>
+            {% endfor %}
+            <li>
+                <a {% if not developers.has_next %}class="disabled"{% endif %}
+                   href="{{ url_for('Admin.manage') }}?page={{ developers.next_num }}">»</a>
+            </li>
+        </ul>
+    </div>
+</fieldset>
+<script>
+    $('ul.pagination li a.disabled').click(function (event) {
+        event.preventDefault();
+    });
+</script>
+
+</body>
+</html>

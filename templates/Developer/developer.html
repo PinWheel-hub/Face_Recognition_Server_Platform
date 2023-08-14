@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>用户主页</title>
+    <script src="../../static/js/jquery-3.4.1.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="../../static/css/main.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="head">
+            <div id="logo" style="float: left; margin-left: 30px">
+                <img src="../static/img/icon.png" alt="" height="30px"><span>人脸识别平台</span>
+            </div>
+
+            <div id="user">
+                <ul>
+                    <li>
+                        <div id="icon">
+                            <img src="../static/img/default_icon.jpg" alt="" height="30px">
+                            <p id="welcome" style="padding-right:20px;display: inline-block;">{{ dname }} ▼</p>
+                        </div>
+                    </li>
+                    <li class="hidden"><a href="{{url_for('Developer.MyInfo')}}" target="body">个人信息</a></li>
+                    <li class="hidden"><a href="{{url_for('User.alterpassword') }}" target="body">修改密码</a></li>
+                    <li class="hidden"><a href="/logout">退出</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content clearfix">
+            <div class="side">
+                <ul>
+                    <li style=" list-style: none">
+                        <h3><a href="{{url_for('Developer.DeveloperDefault') }}" target="body">数据概览</a></h3>
+                    </li>
+                    <li style=" list-style: none">
+                        <h3><a href="{{url_for('Developer.MyPassword') }}" target="body">密钥管理</a></h3>
+                    </li>
+                    <li style="list-style: none">
+                        <h3><a href="{{url_for('Developer.MyFace') }}" target="body">我的人脸</a></h3>
+                    </li>
+                    <li style="list-style: none">
+                        <h3><a href="{{url_for('Developer.MyRecord') }}" target="body">比对记录</a></h3>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="main">
+                <iframe src="{{ url_for('Developer.DeveloperDefault') }}" frameborder="0" name="body" scrolling="no"></iframe>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('.wrapper .side li').on('click',function () {
+            $('.wrapper .side li a').removeClass('chosen');
+            $('.wrapper .side li:hover a').addClass('chosen');
+        })
+    </script>
+</body>
+
+</html>

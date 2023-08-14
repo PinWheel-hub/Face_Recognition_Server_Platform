@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../static/js/ckeditor/ckeditor.js"></script>
+    <script src="../static/js/jquery-3.4.1.min.js" charset="utf-8"></script>
+    <style>
+        div{
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <form action="{{ url_for('Admin.system_config') }}" , method="get" style="margin-bottom: 10px">
+        <label for="version" style="margin-left: 400px">历史版本</label>
+        <select name="version" id="version" style="width: 100px;">
+        {% for version in version_list %}
+                <option value="{{ version }}">{{ version }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="转到" style="width: 100px;height: 25px;margin-left:100px;">
+    </form>
+    <table  border="1" cellspacing="0" cellpadding="10" width="600px" style="margin:0px auto;">
+        <thead>
+        <th><strong>上线时间：</strong></th>
+        <th><strong>公告：</strong></th>
+        </thead>
+        <tbody>
+        <tr><td>{{ system.time }}</td>
+            <td>{{ system.notice|safe }}</td>
+        </tr></tbody>
+    </table>
+
+    <form action="{{ url_for('Admin.system_config') }}" , method="post" >
+        <h4 style="margin-left: 25px">新增版本</h4>
+        <div style="margin-left: 50px;margin-bottom: 20px;">
+            <label for="version_input">版本号</label><input type="text" name="version_input" id="version_input">
+        </div>
+        <div style="margin-left: 50px;margin-bottom: 20px;">
+            <label for="time_input">上线日期</label><input type="date" name="time_input" id="time_input">
+        </div>
+        <div style="margin-left: 50px;margin-bottom: 20px;">系统公告:</div>
+        <div style="margin:0 25px">{{ ckeditor.create() }}</div>
+        <input type="submit" value="提交" style="width: 100px;height: 30px;float:right;margin-right:20px;">
+
+    </form>
+    {{ ckeditor.load() }}
+    {{ ckeditor.config() }}
+
+</body>
+</html>

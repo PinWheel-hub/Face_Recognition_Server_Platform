@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../static/css/form.css">
+    <script src="../../static/js/jquery-3.4.1.min.js" charset="utf-8"></script>
+</head>
+<body>
+    <h3 style="text-align: center">修改人脸</h3>
+    <p style="height:14px;text-align: center;color:red;margin:5px;{{"display:none;" if msg=='' else ""}}">{{ msg }}</p>
+    <div id="alter">
+        <form action="/developer/addface" method="post" enctype="multipart/form-data"
+              accept="image/jpg,image/bmp,image/png">
+            <p><label for="fname">人脸名称</label>
+                <input name="fname" type="text" value="{{ face.Fname }}" readonly="readonly" id="fname">
+            </p>
+            <p><label for="apid">应用编号</label>
+                <input type="number" name="apid" value="{{ face.Apid }}" readonly="readonly" required="required" id="apid">
+            </p>
+            <p><label for="face" style="display: none;">上传图片
+                </label><input type="file" name="face" required="required" id="face" style="display: none;">
+            </p>
+            <p>
+                <input type="number" name="fid" value="{{ face.Apid }}"
+                       style="display:none;"  required="required" i d="apid">
+            </p>
+            <p>
+                <input type="reset" value="编辑">
+                <input type="submit" id="submit" value="修改">
+            </p>
+        </form>
+    </div>
+    <script>
+        change = $("input[type='reset']");
+        change.click(function(e){
+            e.preventDefault();
+            readonly = $("input[readonly]").removeAttr('readonly');
+            console.log(readonly);
+            $("#face,label[for='face']").css("display","inline-block");
+        });
+
+    </script>
+</body>
+</html>

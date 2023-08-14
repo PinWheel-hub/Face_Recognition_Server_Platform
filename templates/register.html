@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="../../static/css/style.css">
+        <script src="../static/js/jquery-3.4.1.min.js" charset="utf-8"></script>
+    </head>
+    <body>
+
+        <form action="{{ url_for('User.register') }}" method="post" class="login-form" style="padding-top: 50px">
+            <h1>注 册</h1>
+            <p style="color: red;text-align: center">{{ msg }}</p>
+            <div class="txtb">
+                <input type="text" name="username">
+                <span data-placeholder="账户名称"></span>
+            </div>
+
+            <div class="txtb">
+                <input type="password" name="password">
+                <span data-placeholder="密码"></span>
+            </div>
+            <div class="txtb">
+                <input type="password" name="rpassword">
+                <span data-placeholder="确认密码"></span>
+            </div>
+            <div class="txtb">
+                <input type="text" name="phone">
+                <span data-placeholder="手机号码"></span>
+            </div>
+            <input type="submit" class="logbtn" value="注 册">
+
+            <div class="bottom-text">
+                已经有账户？ <a href="{{ url_for('User.index') }}">登录</a>
+            </div>
+
+        </form>
+
+        <script type="text/javascript">
+            $(".txtb input").on("focus", function(){
+                $(this).addClass("focus");
+            });
+
+            $(".txtb input").on("blur", function(){
+                if($(this).val() == "")
+                $(this).removeClass("focus");
+            });
+
+        </script>
+
+    </body>
+</html>

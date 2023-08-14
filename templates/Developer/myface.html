@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>myface</title>
+    <link rel="stylesheet" href="../../static/css/table.css">
+    <link rel="stylesheet" href="../../static/font/iconfont.css">
+    <script src="../../static/js/jquery-3.4.1.min.js" charset="utf-8"></script>
+    <script src="../../static/js/drag.js"></script>
+</head>
+<body>
+    <div class="drag">
+        <div class="dragtop">
+            <span class="dragclose">
+                <span class="icon iconfont icon-guanbi" style="color: lightgrey"/>
+            </span>
+        </div>
+        <iframe class='dragframe' name="drag" src="/" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <fieldset>
+        <legend><h2>我的人脸</h2></legend>
+        <div style="height: 550px">
+            <form action="{{ url_for('Developer.SearchFace') }}" method="post">
+                <input type="search" placeholder="输入查询内容" name="content">
+                <label style="font-size: 14px">关键字：</label>
+                <select name="keyword" >
+                    <option value="fid">编号</option>
+                    <option value="fname">人脸名称</option>
+                    <option value="apid">所属应用编号</option>
+                </select>
+                <input type="submit" value="查询" style="height: 30px;background-color:#ff9b3b;">
+                <a class="add blue dragshow" target="drag" href="addface">
+                    <span class="icon iconfont icon-1_add"></span>&nbsp新增
+                </a>
+            </form>
+            <table class="pure-table">
+            <thead>
+                <tr>
+                    <th width="10%">编号</th>
+                    <th width="25%">人脸名称</th>
+                    <th width="25%">所属应用编号</th>
+                    <th width="40%">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for face in facelist.items %}
+            <tr {% if loop.index % 2 == 0%}class="pure-table-odd"{% endif %}>
+                <td>{{ face.Fid }}</td>
+                <td>{{ face.Fname }}</td>
+                <td>{{ face.Apid }}</td>
+                <td>
+                    <a class="blue dragshow check" target="drag" href="/developer/checkface?fid={{ face.Fid }}">查看</a>
+                    <a class="green dragshow update"target="drag" href="/developer/updateface?fid={{ face.Fid }}">修改</a>
+                    <a class="red delete" href="/developer/deleteface?fid={{ face.Fid }}">删除</a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+        </div>
+        <div style="text-align: center"><ul class="pagination">
+            <li >
+                <a {% if not facelist.has_prev %}class="disabled"{% endif %}
+                   href="{{url_for('Developer.MyFace')}}?page={{ facelist.prev_num}} ">«</a>
+            </li>
+            {% for page_num in range(1,facelist.pages + 1) %}
+                <li>
+                    <a href="{{url_for('Developer.MyFace')}}?page={{ page_num }}"
+                            {% if facelist. page==page_num %} class="active"{% endif %}>{{ page_num }}</a>
+                </li>
+            {% endfor %}
+            <li >
+                <a {% if not facelist.has_next %}class="disabled"{% endif %}
+                   href="{{url_for('Developer.MyFace')}}?page={{ facelist.next_num }}">»</a>
+            </li>
+        </ul></div>
+    </fieldset>
+    <script>
+        $('.disabled').click(function(event){event.preventDefault();});
+    </script>
+</body>
+</html>

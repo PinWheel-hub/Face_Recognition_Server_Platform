@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../static/css/form.css">
+</head>
+<body>
+    <h3 style="text-align: center">添加人脸</h3>
+    <p style="height:14px;text-align: center;color:red;margin:5px;{{"display:none;" if msg=='' else ""}}">{{ msg }}</p>
+    <div id="alter">
+        <form action="/developer/addface" method="post" enctype="multipart/form-data"
+              accept="image/jpg,image/bmp,image/png">
+            <p><label for="fname">人脸名称</label><input name="fname" type="text" id="fname"></p>
+            <p><label for="apid">应用编号</label><input type="number" name="apid" required="required" id="apid"></p>
+            <p><label for="face">上传图片</label><input type="file" name="face" required="required" id="face"></p>
+            <p>
+                <input type="reset" value="重置">
+                <input type="submit" id="submit" value="添加">
+            </p>
+        </form>
+    </div>
+</body>
+</html>
